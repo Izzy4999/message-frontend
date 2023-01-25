@@ -1,0 +1,45 @@
+.column{
+    display: flex;
+    flex-direction: column;
+}
+.login_text{
+    margin:0 .5rem .5rem 0;
+    font-size: 1.7rem;
+    font-weight: 400;
+    text-align: left;
+}
+.input{
+    outline: none;
+    background-color: transparent !important;
+    border: none;
+    border-bottom: 1px solid grey;
+    padding: 12px;
+    width: 300px;
+}
+.grid{
+    margin-top: 10rem;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    justify-content: center;
+    align-content: center;
+    column-gap: 20px;
+    justify-items: center;
+    align-items: center;
+}
+.grid_item2{
+    align-self: center;
+    width: 100%;
+}
+.btn{
+    margin-top: 2rem;
+    padding: 1.4rem 2.5rem;
+    border: none;
+    border-radius: 20px;
+    background-color: aqua;
+    color: white;
+    font-size: 1.4rem;
+}
+.para{
+    font-size: 1.7rem;
+    margin-top: 1rem;
+}
