@@ -1,4 +1,5 @@
 import Joi from "joi-browser";
+import swal from "sweetalert";
 import { useState } from "react";
 import { useLocation, Navigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -44,7 +45,14 @@ const Login = () => {
 
     try {
       await login(data.userName, data.password);
-      window.location = state ? state.from.pathname : "/chat";
+      swal({
+        title: "Successful",
+        text: "You have Logged In!",
+        icon: "success",
+        button: true,
+      }).then(() => {
+        window.location = state ? state.from.pathname : "/chat";
+      });
     } catch (err) {
       if (err.response && err.response.status === 400) {
         const errors = { ...error };

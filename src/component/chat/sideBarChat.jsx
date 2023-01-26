@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import swal from "sweetalert";
 import { Avatar, IconButton } from "@material-ui/core";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
@@ -16,6 +17,8 @@ const SidebarChat = ({
   handleCancelRequest,
   handleRejection,
   connected,
+  setIsClicked,
+  isClicked,
 }) => {
   const [seed, setSeed] = useState("");
   useEffect(() => {
@@ -41,7 +44,23 @@ b${seed}.svg`}
             ) : user.sentRequest.find((o) => o._id === userDefault.id) ? (
               <IconButton
                 onClick={() => {
-                  handleRejection(user);
+                  swal({
+                    title: "Are you sure?",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                  }).then((willDelete) => {
+                    if (willDelete) {
+                      swal("Friend request Unsent", {
+                        icon: "success",
+                      });
+                      handleRejection(user);
+                      setIsClicked(!isClicked);
+                    } else {
+                      swal("Canceled");
+                    }
+                  });
                 }}
               >
                 <CheckCircleOutlineIcon />
@@ -49,21 +68,45 @@ b${seed}.svg`}
             ) : user.requests.find((o) => o._id === userDefault.id) ? (
               <IconButton
                 onClick={() => {
-                  handleCancelRequest(user);
+                  swal({
+                    title: "Are you sure?",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                  }).then((willDelete) => {
+                    if (willDelete) {
+                      swal("Request Rejected", {
+                        icon: "success",
+                      });
+                      handleCancelRequest(user);
+                      setIsClicked(!isClicked);
+                    } else {
+                      swal("Canceled");
+                    }
+                  });
                 }}
               >
                 <ClearIcon />
               </IconButton>
-            ) : (
-              <IconButton
-                className={chat.toRight}
-                onClick={() => {
+            ) : null}
+
+            <IconButton
+              className={chat.toRight}
+              onClick={() => {
+                swal({
+                  title: "Successful",
+                  text: "You have Logged In!",
+                  icon: "success",
+                  button: true,
+                }).then(() => {
                   handleSendRequest(user);
-                }}
-              >
-                <PersonAddIcon />
-              </IconButton>
-            )}
+                  setIsClicked(!isClicked);
+                });
+              }}
+            >
+              <PersonAddIcon />
+            </IconButton>
           </div>
         </div>
       ) : (

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import swal from "sweetalert";
 import Joi from "joi-browser";
 import { toast } from "react-toastify";
 import { getCurrentUser, loginwithjwt } from "../../utils/loginService";
@@ -60,8 +61,15 @@ const SignUp = () => {
         data.lastName,
         data.userName
       );
-      loginwithjwt(response.data.data.token);
-      window.location = "/chat";
+      swal({
+        title: "Sign up Successful",
+        text: "Logged In",
+        icon: "success",
+        button: true,
+      }).then(() => {
+        loginwithjwt(response.data.data.token);
+        window.location = "/chat";
+      });
     } catch (err) {
       if (err.response && err.response.status === 400) {
         const errors = { ...error };

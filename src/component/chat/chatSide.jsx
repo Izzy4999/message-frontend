@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import swal from "sweetalert";
 import CancelIcon from "@material-ui/icons/Cancel";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import Pusher from "pusher-js";
@@ -30,15 +31,17 @@ const ChatSide = ({
   const [allUsers, setAllUsers] = useState([]);
   const [loadUsers, setLoadUsers] = useState(false);
   const [connectedUsers, setConnectedUsers] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
   useEffect(() => {
     const user = async () => {
       const res = await getAllUsers();
       setAllUsers(res.data.users);
     };
     if (loadChat) {
+      console.log(`a aki`);
       user();
     }
-  }, [loadChat]);
+  });
   useEffect(() => {
     socket.on("users", (users) => {
       setConnectedUsers(users);
@@ -74,6 +77,7 @@ const ChatSide = ({
   //     channel.unsubscribe();
   //   };
   // }, [allUsers]);
+  console.log(isClicked);
   const handleSendRequest = async (user) => {
     await sendRequest(currentUser, user);
   };
@@ -131,8 +135,10 @@ const ChatSide = ({
           </IconButton>
           <IconButton
             onClick={() => {
-              logout();
-              window.location = "/login";
+              swal("Successful", "You have Logged out!", "success").then(() => {
+                logout();
+                window.location = "/login";
+              });
             }}
           >
             <ExitToAppIcon />
@@ -158,6 +164,8 @@ const ChatSide = ({
                     handleSendRequest={handleSendRequest}
                     handleCancelRequest={handleCancelRequest}
                     handleRejection={handleRejection}
+                    setIsClicked={setIsClicked}
+                    isClicked={isClicked}
                   />
                 );
               })
