@@ -35,13 +35,12 @@ const ChatSide = ({
   useEffect(() => {
     const user = async () => {
       const res = await getAllUsers();
+      console.log(res.data.users);
       setAllUsers(res.data.users);
     };
-    if (loadChat) {
-      console.log(`a aki`);
-      user();
-    }
-  });
+    console.log(`a aki`);
+    user();
+  }, [isClicked]);
   useEffect(() => {
     socket.on("users", (users) => {
       setConnectedUsers(users);
@@ -77,7 +76,6 @@ const ChatSide = ({
   //     channel.unsubscribe();
   //   };
   // }, [allUsers]);
-  console.log(isClicked);
   const handleSendRequest = async (user) => {
     await sendRequest(currentUser, user);
   };

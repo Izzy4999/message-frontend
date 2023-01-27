@@ -89,24 +89,24 @@ b${seed}.svg`}
               >
                 <ClearIcon />
               </IconButton>
-            ) : null}
-
-            <IconButton
-              className={chat.toRight}
-              onClick={() => {
-                swal({
-                  title: "Successful",
-                  text: "You have Logged In!",
-                  icon: "success",
-                  button: true,
-                }).then(() => {
+            ) : (
+              <IconButton
+                className={chat.toRight}
+                onClick={() => {
+                  swal({
+                    title: "Successful",
+                    text: "Request sent",
+                    icon: "success",
+                    button: true,
+                  }).then(() => {
+                    setIsClicked(!isClicked);
+                  });
                   handleSendRequest(user);
-                  setIsClicked(!isClicked);
-                });
-              }}
-            >
-              <PersonAddIcon />
-            </IconButton>
+                }}
+              >
+                <PersonAddIcon />
+              </IconButton>
+            )}
           </div>
         </div>
       ) : (
